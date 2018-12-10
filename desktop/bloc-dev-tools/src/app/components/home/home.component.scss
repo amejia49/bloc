@@ -1,0 +1,32 @@
+.grid-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'events    drill-down';
+}
+
+.dispatch {
+  grid-area: dispatch;
+  background: rgb(28, 28, 28);
+  z-index: 1000;
+}
+
+.events {
+  background: rgb(38, 38, 38);
+  grid-area: events;
+  overflow-y: scroll;
+}
+
+.drill-down {
+  grid-area: drill-down;
+}
+
+.header {
+  grid-area: header;
+}
+
+.footer {
+  grid-area: footer;
+  background: rgb(38, 38, 38);
+}

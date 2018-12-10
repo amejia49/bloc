@@ -60,6 +60,10 @@ class AuthenticationInitialized extends AuthenticationState {
   int get hashCode => isAuthenticated.hashCode ^ isLoading.hashCode;
 
   @override
-  String toString() =>
-      'AuthenticationInitialized { isLoading: $isLoading, isAuthenticated: $isAuthenticated }';
+  String toString() => """{
+    "AuthenticationState": {      
+      "isLoading": $isLoading,
+      "isAuthenticated": $isAuthenticated
+    }
+  }""";
 }

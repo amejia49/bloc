@@ -23,6 +23,19 @@ class LoginButtonPressed extends LoginEvent {
 
   @override
   int get hashCode => username.hashCode ^ password.hashCode;
+
+  @override
+  String toString() => """{
+    "LoginEvent.LoginButtonPressed": {
+      "username": "$username",
+      "password": "$password"
+    }
+  }""";
 }
 
-class LoggedIn extends LoginEvent {}
+class LoggedIn extends LoginEvent {
+  @override
+  String toString() => """{
+    "LoginEvent.LoggedIn": {}
+  }""";
+}

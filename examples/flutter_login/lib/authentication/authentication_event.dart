@@ -12,7 +12,9 @@ class AppStart extends AuthenticationEvent {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString() => 'AppStart';
+  String toString() => """{
+    "AuthenticationEvent.AppStart": {}
+  }""";
 }
 
 class Login extends AuthenticationEvent {
@@ -31,7 +33,11 @@ class Login extends AuthenticationEvent {
   int get hashCode => token.hashCode;
 
   @override
-  String toString() => 'Login { token: $token }';
+  String toString() => """{
+    "AuthenticationEvent.Login": {
+      "token": "$token"
+    }
+  }""";
 }
 
 class Logout extends AuthenticationEvent {
@@ -44,5 +50,7 @@ class Logout extends AuthenticationEvent {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString() => 'Logout';
+  String toString() => """{
+    "AuthenticationEvent.Logout": {}
+  }""";
 }

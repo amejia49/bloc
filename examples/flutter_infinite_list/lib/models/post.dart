@@ -6,7 +6,13 @@ class Post {
   const Post({this.id, this.title, this.body});
 
   @override
-  String toString() => 'Post { id: $id }';
+  String toString() => """
+    { 
+      "id": $id,
+      "title": "$title",
+      "body": "${body.replaceAll(RegExp(r'\n'), '')}"
+    }
+  """;
 
   @override
   bool operator ==(Object other) =>

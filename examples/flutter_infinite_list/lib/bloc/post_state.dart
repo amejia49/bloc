@@ -54,8 +54,13 @@ class PostInitialized extends PostState {
   }
 
   @override
-  String toString() =>
-      'PostInitialized { posts: ${posts.length}, hasError: $hasError, hasReachedMax: $hasReachedMax }';
+  String toString() => """
+    {       
+      "posts": $posts,
+      "hasError": $hasError,
+      "hasReachedMax": $hasReachedMax
+    }
+  """;
 
   @override
   bool operator ==(Object other) =>

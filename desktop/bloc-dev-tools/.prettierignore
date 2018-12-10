@@ -1,0 +1,14 @@
+.DS_STORE
+.editorconfig
+.env
+.git
+.gitignore
+.npmignore
+.prettierignore
+.prettierrc
+.vscode
+*.log
+*.md
+*.json
+coverage
+dist

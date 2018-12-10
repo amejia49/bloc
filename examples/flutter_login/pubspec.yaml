@@ -12,6 +12,8 @@ dependencies:
     path: ../../packages/flutter_bloc
   user_repository:
     path: user_repository
+  bloc_dev_tools:
+    path: ../../packages/bloc_dev_tools
 
 dev_dependencies:
   flutter_test:
