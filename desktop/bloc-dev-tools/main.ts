@@ -22,9 +22,8 @@ function startServer() {
   });
 }
 
-ipcMain.on('dispatch', (event: Event, arg: Object) => {
-  console.log('sending', JSON.stringify(arg));
-  ws.send(JSON.stringify(arg));
+ipcMain.on('dispatch', (event: Event, arg: any) => {
+  ws.send(JSON.stringify({ uuid: arg.uuid }));
 });
 
 function createWindow() {

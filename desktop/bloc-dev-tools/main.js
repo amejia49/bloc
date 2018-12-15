@@ -21,8 +21,7 @@ function startServer() {
     });
 }
 electron_1.ipcMain.on('dispatch', function (event, arg) {
-    console.log('sending', JSON.stringify(arg));
-    ws.send(JSON.stringify(arg));
+    ws.send(JSON.stringify({ uuid: arg.uuid }));
 });
 function createWindow() {
     var electronScreen = electron_1.screen;

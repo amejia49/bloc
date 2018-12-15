@@ -16,9 +16,9 @@ export class TransitionService {
       const { ipcRenderer } = require('electron');
       this.ipcRenderer = ipcRenderer;
       this.ipcRenderer.on('transition', (event: any, args: string) => {
-          const transition: Transition = JSON.parse(args);
-          this.transitionsSubject.next(transition);
-        });
+        const transition: Transition = JSON.parse(args);
+        this.transitionsSubject.next(transition);
+      });
     }
     // this.transitionsSubject.next({
     //   currentState: 0,
