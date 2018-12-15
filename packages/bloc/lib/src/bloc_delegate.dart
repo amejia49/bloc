@@ -7,5 +7,5 @@ abstract class BlocDelegate {
   /// A [Transition] occurs when a new [Event] is dispatched and `mapEventToState` executed.
   /// `onTransition` is called before a [Bloc]'s state has been updated.
   /// A great spot to add universal logging/analytics.
-  void onTransition({Bloc bloc, Transition transition});
+  void onTransition(Transition transition);
 }
