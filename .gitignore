@@ -15,5 +15,12 @@ pubspec.lock
 coverage/
 .test_coverage.dart
 *.log
+<<<<<<< HEAD
 !packages/**/example/ios/
 !packages/**/example/android/
+=======
+!example/ios/
+!example/android/
+!packages/**/example/android/
+!packages/**/example/ios/
+>>>>>>> do not ignore example ios/android contents

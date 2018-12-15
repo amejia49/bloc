@@ -489,10 +489,7 @@
 			buildConfigurations = (
 				97C147031CF9000F007C117D /* Debug */,
 				97C147041CF9000F007C117D /* Release */,
-<<<<<<< HEAD
 				249021D3217E4FDB00AE95B9 /* Profile */,
-=======
->>>>>>> do not ignore example ios/android contents
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -502,10 +499,7 @@
 			buildConfigurations = (
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
-<<<<<<< HEAD
 				249021D4217E4FDB00AE95B9 /* Profile */,
-=======
->>>>>>> do not ignore example ios/android contents
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
