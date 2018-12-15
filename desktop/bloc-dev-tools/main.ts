@@ -1,10 +1,12 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, Event } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-
-let win, serve;
-const args = process.argv.slice(1);
 import * as WebSocket from 'ws';
+
+let win: BrowserWindow;
+let serve: boolean;
+let ws: WebSocket;
+const args = process.argv.slice(1);
 const port = 34263;
 serve = args.some(val => val === '--serve');
 
@@ -12,13 +14,18 @@ function startServer() {
   const wss = new WebSocket.Server({ port });
   console.log('Server running on port', port);
 
-  wss.on('connection', function connection(ws) {
-    ws.on('message', function incoming(data) {
-      console.log(data);
+  wss.on('connection', function connection(socket: WebSocket) {
+    ws = socket;
+    ws.on('message', function incoming(data: string) {
       win.webContents.send('transition', data);
     });
   });
 }
+
+ipcMain.on('dispatch', (event: Event, arg: Object) => {
+  console.log('sending', JSON.stringify(arg));
+  ws.send(JSON.stringify(arg));
+});
 
 function createWindow() {
   const electronScreen = screen;

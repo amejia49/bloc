@@ -1,8 +1,16 @@
 <div class="grid-container">
   <div class="events">
-    <bloc-events [transitions]="transitions"></bloc-events>
+    <bloc-events
+      [transitions]="transitions"
+      [activeTransitionIndex]="activeTransitionIndex"
+      (selected)="onSelected($event)"
+      (clearAll)="onClearAll()"
+      (jump)="onJump($event)"
+    ></bloc-events>
   </div>
   <div class="drill-down">
-    <bloc-event-details [transition]="transitions[0]"></bloc-event-details>
+    <bloc-event-details
+      [transition]="transitions[activeTransitionIndex]"
+    ></bloc-event-details>
   </div>
 </div>

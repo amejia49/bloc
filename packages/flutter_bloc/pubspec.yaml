@@ -9,7 +9,8 @@ environment:
 
 dependencies:
   rxdart: ">=0.18.1 <1.0.0"
-  bloc: ">=0.7.5 <0.8.0"
+  bloc:
+    path: ../bloc
   flutter:
     sdk: flutter
 

@@ -3,21 +3,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var path = require("path");
 var url = require("url");
-var win, serve;
-var args = process.argv.slice(1);
 var WebSocket = require("ws");
+var win;
+var serve;
+var ws;
+var args = process.argv.slice(1);
 var port = 34263;
 serve = args.some(function (val) { return val === '--serve'; });
 function startServer() {
     var wss = new WebSocket.Server({ port: port });
     console.log('Server running on port', port);
-    wss.on('connection', function connection(ws) {
+    wss.on('connection', function connection(socket) {
+        ws = socket;
         ws.on('message', function incoming(data) {
-            console.log(data);
             win.webContents.send('transition', data);
         });
     });
 }
+electron_1.ipcMain.on('dispatch', function (event, arg) {
+    console.log('sending', JSON.stringify(arg));
+    ws.send(JSON.stringify(arg));
+});
 function createWindow() {
     var electronScreen = electron_1.screen;
     var size = electronScreen.getPrimaryDisplay().workAreaSize;

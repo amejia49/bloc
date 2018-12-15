@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { TransitionService } from '../../providers';
 import { Transition } from '../../models';
-import { formatTimestamp } from '../../utils';
+import { convertMilliseconds } from '../../utils';
 
 @Component({
   templateUrl: './home.component.html',
@@ -12,10 +12,13 @@ import { formatTimestamp } from '../../utils';
 export class HomeComponent implements OnInit, OnDestroy {
   private transitionSubscription: Subscription;
   private currentTimestamp: number;
+  private activeTransitionIndex = 0;
   transitions: Transition[] = [];
-  selectedTransition: Transition;
 
-  constructor(private transitionService: TransitionService) {}
+  constructor(
+    private transitionService: TransitionService,
+    private zone: NgZone
+  ) {}
 
   ngOnInit() {
     this.transitionSubscription = this.transitionService.transitions.subscribe(
@@ -24,19 +27,36 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.currentTimestamp = transition.timestamp;
           transition.timestamp = '+00:00.00';
         } else {
-          transition.timestamp = formatTimestamp(
+          transition.timestamp = convertMilliseconds(
             transition.timestamp - this.currentTimestamp
           );
         }
-        this.transitions.push(transition);
-        if (typeof this.selectedTransition === 'undefined') {
-          this.selectedTransition = this.transitions[0];
-        }
+        this.zone.run(() => {
+          this.transitions.push(transition);
+          this.activeTransitionIndex = this.transitions.length - 1;
+        });
       }
     );
   }
 
   ngOnDestroy() {
     this.transitionSubscription.unsubscribe();
+  }
+
+  onSelected(index: number) {
+    if (index === this.activeTransitionIndex) {
+      return;
+    }
+
+    this.activeTransitionIndex = index;
+  }
+
+  onJump(index: number) {
+    this.transitionService.dispatch(this.transitions[index]);
+  }
+
+  onClearAll() {
+    this.transitions = [];
+    this.currentTimestamp = undefined;
   }
 }

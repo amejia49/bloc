@@ -1,4 +1,13 @@
+<div class="events-heading">
+  <span class="events-heading-title">Events</span>
+  <span (click)="onClearAll()" class="clear-all-icon"
+    ><i class="material-icons"> clear_all </i></span
+  >
+</div>
 <bloc-event
-  *ngFor="let transition of transitions"
+  *ngFor="let transition of transitions; let i = index"
   [transition]="transition"
+  [active]="i === activeTransitionIndex ? true : false"
+  (click)="onSelected(i)"
+  (jump)="onJump(i)"
 ></bloc-event>

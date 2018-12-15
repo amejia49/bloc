@@ -93,14 +93,14 @@ abstract class CounterEvent {}
 class Increment extends CounterEvent {
   @override
   String toString() => """{
-    "CounterEvent.Increment": {}
+    "type": "Increment"
   }""";
 }
 
 class Decrement extends CounterEvent {
   @override
   String toString() => """{
-    "CounterEvent.Decrement": {}
+    "type": "Decrement"
   }""";
 }
 

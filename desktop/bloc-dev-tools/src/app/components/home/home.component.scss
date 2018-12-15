@@ -6,14 +6,8 @@
   grid-template-areas: 'events    drill-down';
 }
 
-.dispatch {
-  grid-area: dispatch;
-  background: rgb(28, 28, 28);
-  z-index: 1000;
-}
-
 .events {
-  background: rgb(38, 38, 38);
+  background: rgb(28, 28, 28);
   grid-area: events;
   overflow-y: scroll;
 }

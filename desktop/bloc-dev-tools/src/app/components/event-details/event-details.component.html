@@ -1,4 +1,5 @@
-<div class="container">
-  <div class="current-state" [blocJson]="transition.currentState"></div>
-  <div class="next-state" [blocJson]="transition.nextState"></div>
+<div *ngIf="transition" class="container">
+  <div class="current-state state" [blocJson]="transition.currentState"></div>
+  <pre class="diff-arrow">=></pre>
+  <div class="next-state state" [blocJson]="transition.nextState"></div>
 </div>

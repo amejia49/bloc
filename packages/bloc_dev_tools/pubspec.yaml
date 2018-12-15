@@ -8,7 +8,8 @@ environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
 
 dependencies:
-  bloc: ^0.7.0
+  bloc:
+    path: ../bloc/
   web_socket_channel: 1.0.9
 
 dev_dependencies:

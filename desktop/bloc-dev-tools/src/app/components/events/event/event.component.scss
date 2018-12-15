@@ -10,7 +10,7 @@
   background: rgb(31, 34, 35);
 }
 
-.container:active {
+.container.active {
   background: rgb(0, 54, 97);
 }
 
@@ -19,12 +19,34 @@
   font-size: 14px;
 }
 
-.timestamp {
+.actions {
   padding: 5px;
   float: right;
   color: #a0a0a0;
-  background-color: #606368;
   border-radius: 5%;
   font-weight: lighter;
   margin-left: auto;
+}
+
+.action {
+  padding: 5px;
+  border-radius: 5%;
+  font-weight: lighter;
+  margin-left: auto;
+}
+
+.timestamp {
+  background-color: #606368;
+  float: left;
+  margin-right: 10px;
+}
+
+.jump {
+  background-color: #606368;
+  float: right;
+  opacity: 0.8;
+}
+
+.jump:hover {
+  opacity: 1;
 }

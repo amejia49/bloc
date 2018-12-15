@@ -1,1 +1,1 @@
-export * from './format-timestamp.util';
+export * from './convert-milliseconds.util';

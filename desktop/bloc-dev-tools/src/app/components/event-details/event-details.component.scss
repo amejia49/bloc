@@ -7,5 +7,16 @@
 }
 
 .current-state {
-  text-decoration: line-through;
+  background: rgba(100, 0, 12, 1);
+}
+
+.next-state {
+  background: rgba(41, 47, 29, 1);
+}
+
+.state {
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin: 5px;
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Transition } from '../../../models';
 
 @Component({
@@ -9,4 +9,14 @@ import { Transition } from '../../../models';
 export class EventComponent {
   @Input()
   transition: Transition;
+
+  @Input()
+  active: boolean;
+
+  @Output()
+  jump = new EventEmitter<void>();
+
+  onJump() {
+    this.jump.emit();
+  }
 }
