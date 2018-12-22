@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocProvider<CounterBloc>(
-        bloc: _bloc,
+      home: BlocProvider(
+        blocs: [_bloc],
         child: _child,
       ),
     );
@@ -53,8 +53,8 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocProvider<CounterBloc>(
-        bloc: bloc,
+      home: BlocProvider(
+        blocs: [bloc],
         child: Scaffold(
           appBar: AppBar(
             title: Text('Counter'),
@@ -212,7 +212,7 @@ void main() {
       expect(tester.takeException(), isInstanceOf<AssertionError>());
     });
 
-    testWidgets('passes bloc to children', (WidgetTester tester) async {
+    testWidgets('passes single bloc to children', (WidgetTester tester) async {
       final CounterBloc _bloc = CounterBloc();
       final CounterPage _child = CounterPage();
       await tester.pumpWidget(MyApp(
