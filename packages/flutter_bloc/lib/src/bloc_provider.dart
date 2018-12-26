@@ -25,7 +25,7 @@ class BlocProvider extends StatefulWidget {
 
   /// Method that allows widgets to access the bloc as long as their `BuildContext`
   /// contains a `BlocProvider` instance.
-  static Bloc of<B extends Bloc<dynamic, dynamic>>(BuildContext context) {
+  static B of<B extends Bloc<dynamic, dynamic>>(BuildContext context) {
     final Type contextType = context.owner.runtimeType;
     if (_blocs[contextType] == null) {
       throw FlutterError(
@@ -41,7 +41,7 @@ class BlocProvider extends StatefulWidget {
           'The context used was:\n'
           '  $context');
     }
-    return _blocs[contextType][B];
+    return _blocs[contextType][B] as B;
   }
 
   @override
@@ -52,12 +52,13 @@ class _BlocProviderState extends State<BlocProvider> {
   @override
   void initState() {
     final Type contextType = context.owner.runtimeType;
-    widget.blocs.forEach((Bloc bloc) {
+    for (int i = 0; i < widget.blocs.length; i++) {
+      final Bloc bloc = widget.blocs[i];
       if (BlocProvider._blocs[contextType] == null) {
         BlocProvider._blocs[contextType] = {};
       }
       BlocProvider._blocs[contextType][bloc.runtimeType] = bloc;
-    });
+    }
     super.initState();
   }
 

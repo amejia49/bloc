@@ -31,7 +31,7 @@ class MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       home: BlocProvider(
         blocs: [_counterBloc],
-        child: IntermediatePage(),
+        child: CounterPage(),
       ),
     );
   }
@@ -40,29 +40,6 @@ class MyAppState extends State<MyApp> {
   void dispose() {
     _counterBloc.dispose();
     super.dispose();
-  }
-}
-
-class IntermediatePage extends StatefulWidget {
-  final NamedBloc _namedBloc = NamedBloc();
-
-  @override
-  State<StatefulWidget> createState() => IntermediatePageState();
-}
-
-class IntermediatePageState extends State<IntermediatePage> {
-  @override
-  void dispose() {
-    widget._namedBloc.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      blocs: [widget._namedBloc],
-      child: CounterPage(),
-    );
   }
 }
 
@@ -136,15 +113,5 @@ class CounterBloc extends Bloc<CounterEvent, int> {
     if (event is Decrement) {
       yield currentState - 1;
     }
-  }
-}
-
-class NamedBloc extends Bloc<String, String> {
-  @override
-  String get initialState => '';
-
-  @override
-  Stream<String> mapEventToState(String currentState, String event) async* {
-    yield 'Bob';
   }
 }
