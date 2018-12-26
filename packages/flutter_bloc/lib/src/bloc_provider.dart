@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/widgets.dart';
 
 import 'package:meta/meta.dart';
@@ -21,7 +23,8 @@ class BlocProvider extends StatefulWidget {
         assert(child != null),
         super(key: key);
 
-  static Map<Type, Map<Type, Bloc>> _blocs = {};
+  static HashMap<Type, HashMap<Type, Bloc>> _blocs =
+      HashMap<Type, HashMap<Type, Bloc>>();
 
   /// Method that allows widgets to access the bloc as long as their `BuildContext`
   /// contains a `BlocProvider` instance.
@@ -55,11 +58,18 @@ class _BlocProviderState extends State<BlocProvider> {
     for (int i = 0; i < widget.blocs.length; i++) {
       final Bloc bloc = widget.blocs[i];
       if (BlocProvider._blocs[contextType] == null) {
-        BlocProvider._blocs[contextType] = {};
+        BlocProvider._blocs[contextType] = HashMap<Type, Bloc>();
       }
       BlocProvider._blocs[contextType][bloc.runtimeType] = bloc;
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    final Type contextType = context.owner.runtimeType;
+    BlocProvider._blocs[contextType] = HashMap<Type, Bloc>();
+    super.dispose();
   }
 
   @override
