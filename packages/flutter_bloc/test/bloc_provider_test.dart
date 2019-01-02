@@ -132,37 +132,6 @@ class CounterPage extends StatelessWidget {
   }
 }
 
-class CounterPageNoBloc extends StatelessWidget {
-  final Function onBuild;
-
-  const CounterPageNoBloc({Key key, this.onBuild}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    CounterBloc _counterBloc = BlocProvider.of<Bloc>(context);
-    assert(_counterBloc != null);
-
-    return Scaffold(
-      appBar: AppBar(title: Text('Counter')),
-      body: BlocBuilder<CounterEvent, int>(
-        bloc: _counterBloc,
-        builder: (BuildContext context, int count) {
-          if (onBuild != null) {
-            onBuild();
-          }
-          return Center(
-            child: Text(
-              '$count',
-              key: Key('counter_text'),
-              style: TextStyle(fontSize: 24.0),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
 abstract class CounterEvent {}
 
 class IncrementCounter extends CounterEvent {}
@@ -243,42 +212,6 @@ void main() {
       expect(tester.takeException(), isInstanceOf<AssertionError>());
     });
 
-    testWidgets(
-        'should throw FlutterError if BlocProvider is not found in current context',
-        (WidgetTester tester) async {
-      final Widget _child = CounterPage();
-      await tester.pumpWidget(MyAppNoProvider(
-        child: _child,
-      ));
-      final dynamic exception = tester.takeException();
-      final expectedMessage =
-          'BlocProvider.of() called with a context that does not contain any BlocProviders.\n'
-          'This can happen if the context you use comes from a widget above the BlocProvider.\n'
-          'The context used was:\n'
-          '  CounterPage(dirty)';
-      expect(exception is FlutterError, true);
-      expect(exception.message, expectedMessage);
-    });
-
-    testWidgets(
-        'should throw FlutterError if Bloc is not found in current context',
-        (WidgetTester tester) async {
-      final Widget _child = CounterPageNoBloc();
-      final CounterBloc _bloc = CounterBloc();
-      await tester.pumpWidget(MyApp(
-        bloc: _bloc,
-        child: _child,
-      ));
-      final dynamic exception = tester.takeException();
-      final expectedMessage =
-          'BlocProvider.of() called with a context that does not contain a Bloc of type Bloc<dynamic, dynamic>.\n'
-          'This can happen if the context you use comes from a widget above the BlocProvider.\n'
-          'The context used was:\n'
-          '  CounterPageNoBloc(dirty)';
-      expect(exception is FlutterError, true);
-      expect(exception.message, expectedMessage);
-    });
-
     testWidgets('passes single bloc to children', (WidgetTester tester) async {
       final CounterBloc _bloc = CounterBloc();
       final CounterPage _child = CounterPage();
@@ -292,6 +225,25 @@ void main() {
 
       final Text _counterText = _counterFinder.evaluate().first.widget;
       expect(_counterText.data, '0');
+    });
+
+    testWidgets(
+        'should throw FlutterError if BlocProvider is not found in current context',
+        (WidgetTester tester) async {
+      final Widget _child = CounterPage();
+      await tester.pumpWidget(MyAppNoProvider(
+        child: _child,
+      ));
+      final dynamic exception = tester.takeException();
+      final expectedMessage =
+          'BlocProvider.of() called with a context that does not contain a Bloc of type CounterBloc.\n'
+          'No ancestor could be found starting from the context that was passed '
+          'to BlocProvider.of<CounterBloc>(). This can happen '
+          'if the context you use comes from a widget above the BlocProvider.\n'
+          'The context used was:\n'
+          '  CounterPage(dirty)';
+      expect(exception is FlutterError, true);
+      expect(exception.message, expectedMessage);
     });
 
     testWidgets(
